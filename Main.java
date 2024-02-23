@@ -16,12 +16,13 @@ public class Main {
     }
 
     public static String generatePassword(int len){
-        String password = "";
+        StringBuilder password = new StringBuilder();
         String[] passwordArr = new String[len];
         for (int i = 0; i < len; i++) {
-            int randomNum = random.nextInt(1, 3);
+            int randomNum = random.nextInt(1, 4);
 
-            //z jakiegos powodu zawsze jest 3 i haslo to same char'y, DO NAPRAWY
+            //z jakiegos powodu jezeli losowa liczba = 2, to wybiera losową liczbe z "case 2:", potem przeskakuje
+            //na "case 3:" i nadpisuje randomLetterGen() charakterem z randomCharacterGen()
             switch(randomNum){
                 case 1:
                     passwordArr[i] = randomNumberGen();
@@ -29,10 +30,13 @@ public class Main {
                     passwordArr[i] = randomLetterGen();
                 case 3:
                     passwordArr[i] = randomCharacterGen();
+                default:
+                    System.out.println("Random number generated is " + randomNum);
+                    break;
             }
-            password += passwordArr[i];
+            password.append(passwordArr[i]);
         }
-        return password;
+        return password.toString();
     }
 
     static String randomNumberGen(){
