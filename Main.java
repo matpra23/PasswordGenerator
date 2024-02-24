@@ -20,9 +20,6 @@ public class Main {
         String[] passwordArr = new String[len];
         for (int i = 0; i < len; i++) {
             int randomNum = random.nextInt(1, 4);
-
-            //z jakiegos powodu jezeli losowa liczba = 2, to wybiera losową liczbe z "case 2:", potem przeskakuje
-            //na "case 3:" i nadpisuje randomLetterGen() charakterem z randomCharacterGen()
             switch(randomNum){
                 case 1:
                     passwordArr[i] = randomNumberGen();
