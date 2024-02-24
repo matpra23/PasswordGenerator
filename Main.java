@@ -26,10 +26,13 @@ public class Main {
             switch(randomNum){
                 case 1:
                     passwordArr[i] = randomNumberGen();
+                    break;
                 case 2:
                     passwordArr[i] = randomLetterGen();
+                    break;
                 case 3:
                     passwordArr[i] = randomCharacterGen();
+                    break;
                 default:
                     System.out.println("Random number generated is " + randomNum);
                     break;
@@ -41,9 +44,10 @@ public class Main {
 
     static String randomNumberGen(){
         String randomNumberGenerated = "";
+        String numbers = "0123456789";
         int randN = random.nextInt(0,10);
-        char[] numbers = new char[]{0,1,2,3,4,5,6,7,8,9};
-        randomNumberGenerated += numbers[randN];
+        char[] numbersArr = numbers.toCharArray();
+        randomNumberGenerated += numbersArr[randN];
         return randomNumberGenerated;
     }
 
