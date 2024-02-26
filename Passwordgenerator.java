@@ -1,4 +1,3 @@
-//
 package org.example;
 
 import java.util.Random;
@@ -114,20 +113,18 @@ public class Passwordgenerator {
                 password.append(passwordArr[i]);
             }
         }
-
         return password.toString();
     }
+    
+    //stworzyc klase która zastąpi 3 poniżej
 
     private static boolean includeNumbers(){
         System.out.println("Do you want to include special numbers?");
         int trueOrfalse = sc.nextInt();
         if (trueOrfalse == 1){
             return true;
-        } else if (trueOrfalse == 0) {
-            return false;
-        }else {
-            throw new IllegalArgumentException("input 0 or 1");
         }
+        return false;
     }
 
     private static boolean includeLetters(){
@@ -135,12 +132,8 @@ public class Passwordgenerator {
         int trueOrfalse = sc.nextInt();
         if (trueOrfalse == 1){
             return true;
-        } else if (trueOrfalse == 0) {
-            return false;
-        }else {
-            throw new IllegalArgumentException("input 0 or 1");
         }
-
+        return false;
     }
 
     private static boolean includeSpacialCharacters(){
@@ -148,13 +141,11 @@ public class Passwordgenerator {
         int trueOrfalse = sc.nextInt();
         if (trueOrfalse == 1){
             return true;
-        } else if (trueOrfalse == 0) {
-            return false;
-        }else {
-            throw new IllegalArgumentException("input 0 or 1");
         }
+        return false;
     }
-
+    
+//stworzyć klase która zastąpi 3 poniżej
     private static String randomNumberGen(){
         String randomNumberGenerated = "";
         String numbers = "0123456789";
