@@ -7,20 +7,21 @@ public class Passwordgenerator {
     private static final Random random = new Random();
     private static final Scanner sc = new Scanner(System.in);
 
-    public static String generatePassword(int len){
+    public static String generatePassword(int len) {
         System.out.println("no = 0, yes = 1");
 
         boolean includeNums = includeNumbers();
         boolean includeLetter = includeLetters();
         boolean includeSpecCh = includeSpacialCharacters();
 
+        long start = System.currentTimeMillis();
         StringBuilder password = new StringBuilder();
         String[] passwordArr = new String[len];
 
-        if (includeNums && includeLetter && includeSpecCh){
+        if (includeNums && includeLetter && includeSpecCh) {
             for (int i = 0; i < len; i++) {
                 int randomNum = random.nextInt(1, 4);
-                switch(randomNum){
+                switch (randomNum) {
                     case 1:
                         passwordArr[i] = randomNumberGen();
                         break;
@@ -38,10 +39,10 @@ public class Passwordgenerator {
             }
         }
 
-        if(includeNums && includeLetter && !includeSpecCh) {
+        if (includeNums && includeLetter && !includeSpecCh) {
             for (int i = 0; i < len; i++) {
                 int randomNum = random.nextInt(1, 3);
-                switch(randomNum){
+                switch (randomNum) {
                     case 1:
                         passwordArr[i] = randomNumberGen();
                         break;
@@ -59,7 +60,7 @@ public class Passwordgenerator {
         if (!includeNums && includeLetter && includeSpecCh) {
             for (int i = 0; i < len; i++) {
                 int randomNum = random.nextInt(1, 3);
-                switch(randomNum){
+                switch (randomNum) {
                     case 1:
                         passwordArr[i] = randomLetterGen();
                         break;
@@ -77,7 +78,7 @@ public class Passwordgenerator {
         if (includeNums && !includeLetter && includeSpecCh) {
             for (int i = 0; i < len; i++) {
                 int randomNum = random.nextInt(1, 3);
-                switch(randomNum){
+                switch (randomNum) {
                     case 1:
                         passwordArr[i] = randomNumberGen();
                         break;
@@ -113,39 +114,39 @@ public class Passwordgenerator {
                 password.append(passwordArr[i]);
             }
         }
+        long end = System.currentTimeMillis();
+        time time = (s, e) -> e - s;
+        System.out.println("Password generated in " + time.miliseconds(start, end) + "ms");
         return password.toString();
     }
-    
-    //stworzyc klase która zastąpi 3 poniżej
 
     private static boolean includeNumbers(){
-        System.out.println("Do you want to include special numbers?");
-        int trueOrfalse = sc.nextInt();
-        if (trueOrfalse == 1){
+        System.out.println("Include numbers?");
+        int trueOrFalse = sc.nextInt();
+        if (trueOrFalse == 1){
             return true;
         }
         return false;
     }
 
     private static boolean includeLetters(){
-        System.out.println("Do you want to include special letters?");
-        int trueOrfalse = sc.nextInt();
-        if (trueOrfalse == 1){
+        System.out.println("Include letters?");
+        int trueOrFalse = sc.nextInt();
+        if (trueOrFalse == 1){
             return true;
         }
         return false;
     }
 
     private static boolean includeSpacialCharacters(){
-        System.out.println("Do you want to include special characters?");
-        int trueOrfalse = sc.nextInt();
-        if (trueOrfalse == 1){
+        System.out.println("Include special characters?");
+        int trueOrFalse = sc.nextInt();
+        if (trueOrFalse == 1){
             return true;
         }
         return false;
     }
-    
-//stworzyć klase która zastąpi 3 poniżej
+
     private static String randomNumberGen(){
         String randomNumberGenerated = "";
         String numbers = "0123456789";
