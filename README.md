@@ -17,3 +17,11 @@ New:
 To fix: 
 -code optimalization
 
+10.09.2024
+===
+New:
+-exception for length < 1.
+-lambda for calculating password generation time.
+
+To add:
+-GUI
