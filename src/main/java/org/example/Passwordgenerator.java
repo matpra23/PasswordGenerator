@@ -98,7 +98,6 @@ public class Passwordgenerator {
                 passwordArr[i] = randomNumberGen();
                 password.append(passwordArr[i]);
             }
-
         }
 
         if (!includeNums && includeLetter && !includeSpecCh) {
@@ -123,6 +122,10 @@ public class Passwordgenerator {
     private static boolean includeNumbers(){
         System.out.println("Include numbers?");
         int trueOrFalse = sc.nextInt();
+        if(trueOrFalse != 1 && trueOrFalse != 0){
+            System.out.println("Invalid input");
+            throw new RuntimeException("Invalid input");
+        }
         if (trueOrFalse == 1){
             return true;
         }
@@ -132,6 +135,10 @@ public class Passwordgenerator {
     private static boolean includeLetters(){
         System.out.println("Include letters?");
         int trueOrFalse = sc.nextInt();
+        if(trueOrFalse != 1 && trueOrFalse != 0){
+            System.out.println("Invalid input");
+            throw new RuntimeException("Invalid input");
+        }
         if (trueOrFalse == 1){
             return true;
         }
@@ -141,6 +148,10 @@ public class Passwordgenerator {
     private static boolean includeSpacialCharacters(){
         System.out.println("Include special characters?");
         int trueOrFalse = sc.nextInt();
+        if(trueOrFalse != 1 && trueOrFalse != 0){
+            System.out.println("Invalid input");
+            throw new RuntimeException("Invalid input");
+        }
         if (trueOrFalse == 1){
             return true;
         }
