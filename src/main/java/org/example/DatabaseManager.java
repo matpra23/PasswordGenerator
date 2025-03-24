@@ -13,6 +13,7 @@ public class DatabaseManager {
             String sql = "CREATE TABLE IF NOT EXISTS passwords (" +
                     "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "password TEXT NOT NULL," +
+                    "description TEXT," +
                     "created_at TEXT NOT NULL," +
                     "length INTEGER NOT NULL," +
                     "include_numbers BOOLEAN NOT NULL," +
@@ -27,20 +28,21 @@ public class DatabaseManager {
         }
     }
 
-    public static void savePassword(String password, int length, boolean includeNumbers, 
+    public static void savePassword(String password, String description, int length, boolean includeNumbers, 
                                   boolean includeLetters, boolean includeSpecialChars) {
-        String sql = "INSERT INTO passwords (password, created_at, length, include_numbers, " +
-                    "include_letters, include_special_chars) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO passwords (password, description, created_at, length, include_numbers, " +
+                    "include_letters, include_special_chars) VALUES (?, ?, ?, ?, ?, ?, ?)";
         
         try (Connection conn = DriverManager.getConnection(DB_URL);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             
             pstmt.setString(1, password);
-            pstmt.setString(2, LocalDateTime.now().format(formatter));
-            pstmt.setInt(3, length);
-            pstmt.setBoolean(4, includeNumbers);
-            pstmt.setBoolean(5, includeLetters);
-            pstmt.setBoolean(6, includeSpecialChars);
+            pstmt.setString(2, description);
+            pstmt.setString(3, LocalDateTime.now().format(formatter));
+            pstmt.setInt(4, length);
+            pstmt.setBoolean(5, includeNumbers);
+            pstmt.setBoolean(6, includeLetters);
+            pstmt.setBoolean(7, includeSpecialChars);
             
             pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -63,7 +65,7 @@ public class DatabaseManager {
 
     public static String getLastPasswords(int limit) {
         StringBuilder result = new StringBuilder();
-        String sql = "SELECT password, created_at FROM passwords ORDER BY created_at DESC LIMIT ?";
+        String sql = "SELECT password, description, created_at FROM passwords ORDER BY created_at DESC LIMIT ?";
         
         try (Connection conn = DriverManager.getConnection(DB_URL);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -72,8 +74,12 @@ public class DatabaseManager {
             
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
-                    result.append("Password: ").append(rs.getString("password"))
-                          .append(" | Created: ").append(rs.getString("created_at"))
+                    result.append("Password: ").append(rs.getString("password"));
+                    String description = rs.getString("description");
+                    if (description != null && !description.trim().isEmpty()) {
+                        result.append(" | Description: ").append(description);
+                    }
+                    result.append(" | Created: ").append(rs.getString("created_at"))
                           .append("\n");
                 }
             }

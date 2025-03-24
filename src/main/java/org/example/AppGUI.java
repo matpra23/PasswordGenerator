@@ -13,6 +13,7 @@ public class AppGUI extends JFrame {
     private JLabel resultLabel;
     private JTextArea historyArea;
     private JCheckBox savePasswordCheckBox;
+    private JTextField descriptionField;
     private String currentPassword;
 
     public void run() throws NegativeNumberException {
@@ -28,7 +29,7 @@ public class AppGUI extends JFrame {
 
         // Main panel for input controls
         JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new GridLayout(7, 1, 10, 10));
+        mainPanel.setLayout(new GridLayout(8, 1, 10, 10));
 
         // Password length input
         JPanel lengthPanel = new JPanel();
@@ -51,14 +52,25 @@ public class AppGUI extends JFrame {
         generateButton.addActionListener(e -> generatePassword());
         mainPanel.add(generateButton);
 
-        // Result panel with save checkbox
+        // Result panel with save checkbox and description
         JPanel resultPanel = new JPanel(new BorderLayout());
         resultLabel = new JLabel("Generated password will appear here");
+        
+        // Description panel
+        JPanel descriptionPanel = new JPanel(new BorderLayout());
+        descriptionPanel.add(new JLabel("Description: "), BorderLayout.WEST);
+        descriptionField = new JTextField();
+        descriptionField.setEnabled(false);
+        descriptionPanel.add(descriptionField, BorderLayout.CENTER);
+        
+        // Save checkbox
         savePasswordCheckBox = new JCheckBox("Save to history");
         savePasswordCheckBox.setEnabled(false);
         savePasswordCheckBox.addActionListener(e -> handleSaveCheckbox());
-        resultPanel.add(resultLabel, BorderLayout.CENTER);
-        resultPanel.add(savePasswordCheckBox, BorderLayout.EAST);
+        
+        resultPanel.add(resultLabel, BorderLayout.NORTH);
+        resultPanel.add(descriptionPanel, BorderLayout.CENTER);
+        resultPanel.add(savePasswordCheckBox, BorderLayout.SOUTH);
         mainPanel.add(resultPanel);
 
         // History panel
@@ -95,6 +107,8 @@ public class AppGUI extends JFrame {
             resultLabel.setText("Your password: " + currentPassword);
             savePasswordCheckBox.setEnabled(true);
             savePasswordCheckBox.setSelected(false);
+            descriptionField.setEnabled(true);
+            descriptionField.setText("");
         } catch (NumberFormatException ex) {
             resultLabel.setText("Please enter a valid number");
         } catch (NegativeNumberException ex) {
@@ -107,6 +121,7 @@ public class AppGUI extends JFrame {
             if (savePasswordCheckBox.isSelected()) {
                 DatabaseManager.savePassword(
                     currentPassword,
+                    descriptionField.getText().trim(),
                     Integer.parseInt(lengthField.getText()),
                     numbersCheckBox.isSelected(),
                     lettersCheckBox.isSelected(),
