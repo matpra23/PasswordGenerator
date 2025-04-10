@@ -12,6 +12,10 @@ A Java-based password generator application with GUI and database storage capabi
 
 ## Changelog
 
+### April 10, 2025
+##### New
+- Code optimalization - app speed increased and memmory usage decreased
+
 ### March 24, 2025
 #### New Features
 - Added GUI with checkboxes for password options
