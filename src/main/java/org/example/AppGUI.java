@@ -5,16 +5,16 @@ import java.awt.*;
 
 public class AppGUI extends JFrame {
     private static final JFrame frame = new JFrame("Password Generator");
-    private JTextField lengthField;
-    private JCheckBox numbersCheckBox;
-    private JCheckBox lettersCheckBox;
-    private JCheckBox specialCharsCheckBox;
-    private JButton generateButton;
-    private JLabel resultLabel;
-    private JTextArea historyArea;
-    private JCheckBox savePasswordCheckBox;
-    private JTextField descriptionField;
-    private String currentPassword;
+    private static JTextField lengthField;
+    private static JCheckBox numbersCheckBox;
+    private static JCheckBox lettersCheckBox;
+    private static JCheckBox specialCharsCheckBox;
+    private static JButton generateButton;
+    private static JLabel resultLabel;
+    private static JTextArea historyArea;
+    private static JCheckBox savePasswordCheckBox;
+    private static JTextField descriptionField;
+    private static String currentPassword;
 
     public void run() throws NegativeNumberException {
         DatabaseManager.initializeDatabase();

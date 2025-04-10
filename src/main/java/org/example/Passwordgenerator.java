@@ -3,12 +3,20 @@ package org.example;
 import java.util.Random;
 
 public class Passwordgenerator {
-    private static final Random random = new Random();
+    
     private static long start;
     private static long end;
     private static int randomNum;
-    private static StringBuilder password;
+    private static String randomNumberGenerated;
+    private static String randomLetterGenerated;
+    private static String randomCharGenerated;
+    private static final String numbers = "0123456789";
+    private static final String letters = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpRrSsTtUuWwYyZz";
+    private static final String characters = "!@#$%^&*()_+-}{[]";
 
+    private static StringBuilder password;
+    private static final Random random = new Random();
+    
     public static String generatePassword(int len, boolean includeNums, boolean includeLetter, boolean includeSpecCh) {
         start = System.currentTimeMillis();
         password = new StringBuilder();
@@ -93,8 +101,7 @@ public class Passwordgenerator {
     }
 
     private static String randomNumberGen() {
-        String randomNumberGenerated = "";
-        String numbers = "0123456789";
+        randomNumberGenerated = "";
         int randN = random.nextInt(0, 10);
         char[] numbersArr = numbers.toCharArray();
         randomNumberGenerated += numbersArr[randN];
@@ -102,8 +109,7 @@ public class Passwordgenerator {
     }
 
     private static String randomLetterGen() {
-        String randomLetterGenerated = "";
-        String letters = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpRrSsTtUuWwYyZz";
+        randomLetterGenerated = "";
         int randN = random.nextInt(0, 46);
         char[] letterArr = letters.toCharArray();
         randomLetterGenerated += letterArr[randN];
@@ -111,8 +117,7 @@ public class Passwordgenerator {
     }
 
     private static String randomSpecialCharacterGen() {
-        String randomCharGenerated = "";
-        String characters = "!@#$%^&*()_+-}{[]";
+        randomCharGenerated = "";
         int randomN = random.nextInt(0, 17);
         char[] charactersArr = characters.toCharArray();
         randomCharGenerated += charactersArr[randomN];

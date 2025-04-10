@@ -5,7 +5,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class DatabaseManager {
+
     private static final String DB_URL = "jdbc:sqlite:passwords.db";
+    private static String sql;
+    private static String description;
+
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     public static void initializeDatabase() {
@@ -30,7 +34,7 @@ public class DatabaseManager {
 
     public static void savePassword(String password, String description, int length, boolean includeNumbers, 
                                   boolean includeLetters, boolean includeSpecialChars) {
-        String sql = "INSERT INTO passwords (password, description, created_at, length, include_numbers, " +
+        sql = "INSERT INTO passwords (password, description, created_at, length, include_numbers, " +
                     "include_letters, include_special_chars) VALUES (?, ?, ?, ?, ?, ?, ?)";
         
         try (Connection conn = DriverManager.getConnection(DB_URL);
@@ -51,7 +55,7 @@ public class DatabaseManager {
     }
 
     public static void deletePassword(String password) {
-        String sql = "DELETE FROM passwords WHERE password = ?";
+        sql = "DELETE FROM passwords WHERE password = ?";
         
         try (Connection conn = DriverManager.getConnection(DB_URL);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -65,7 +69,7 @@ public class DatabaseManager {
 
     public static String getLastPasswords(int limit) {
         StringBuilder result = new StringBuilder();
-        String sql = "SELECT password, description, created_at FROM passwords ORDER BY created_at DESC LIMIT ?";
+        sql = "SELECT password, description, created_at FROM passwords ORDER BY created_at DESC LIMIT ?";
         
         try (Connection conn = DriverManager.getConnection(DB_URL);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -75,7 +79,7 @@ public class DatabaseManager {
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     result.append("Password: ").append(rs.getString("password"));
-                    String description = rs.getString("description");
+                    description = rs.getString("description");
                     if (description != null && !description.trim().isEmpty()) {
                         result.append(" | Description: ").append(description);
                     }
